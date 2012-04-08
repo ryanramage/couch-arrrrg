@@ -1,0 +1,28 @@
+{
+    "name" : "couch-pirate",
+    "version" : "0.0.1",
+    "description" : "offline, decentralized pirate search!",
+    "attachments": ["html"],
+    "modules": "lib",
+    "load": "lib/app",
+    "handlebars": {
+        "all_partials": true,
+        "templates": "templates"
+    },
+    "less": {
+            "compile": "html/css/tpb.less"
+        },
+    "dependencies": {
+        "modules": null,
+        "attachments": null,
+        "handlebars": null,
+        "handlebars-helpers": null,
+        "properties": null,
+        "underscore": null,
+        "bootstrap-less" : null,
+        "less-precompiler": null,
+        "db" : null,
+        "http-browserify" : null
+
+    }
+}

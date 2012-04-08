@@ -1,0 +1,12 @@
+{
+    "name": "http-browserify",
+    "version": "0.1.1-kanso.1",
+    "description": "The http module from node.js, but for browsers",
+    "url": "https://github.com/ryanramage/http-browserify",
+    "modules": ["http.js", "lib/request.js", "lib/response.js"],
+    "modules_attachment": false,
+    "dependencies": {
+        "modules": ">=0.0.8",
+        "events" : null
+    }
+}
