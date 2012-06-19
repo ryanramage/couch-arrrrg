@@ -35,7 +35,7 @@ function($, handlebars, couch, JSONStream, _){
                      var json = JSONStream.parse([/./])
                      stream.pipe(json)
                      json.on('data', function(doc) {
-                        
+
                      });
 
 
