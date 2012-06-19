@@ -2,7 +2,7 @@
     "name" : "couch-pirate",
     "version" : "0.0.1",
     "description" : "offline, decentralized pirate search!",
-    "attachments": ["css", "img", "jam", "js", "templates", "index.html"],
+    "attachments": ["css", "img", "jam", "js",  "index.html"],
     "modules": "ddoc",
     "load": "ddoc/ddoc",
     "less": {

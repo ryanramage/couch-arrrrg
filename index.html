@@ -43,5 +43,49 @@
             });
         });
     </script>
+    <script id="loading-template" type="text/x-handlebars-template">
+        <h3>Argh, I be a search'n!</h3>
+    </script>
+    <script id="nofound-template" type="text/x-handlebars-template">
+        <h3>No results found</h3>
+    </script>
+    <script id="results-template" type="text/x-handlebars-template">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th class="num">Size</th>
+              <th class="num">Seeds</th>
+              <th>Magnet</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+        <div class="count loading-icon">
+            <img src="img/loading.gif" alt="Pirate Couch" />
+        </div>
+    </script>
+    <script id="row-template" type="text/x-handlebars-template">
+        <tr>
+            <td><a target="_blank" href="http://thepiratebay.se/torrent/{{id}}/">{{name}}</a></td>
+            <td class="num">{{niceSize size}}</td>
+            <td class="num">{{s}}</td>
+            <td><a href="magnet:?xt=urn:btih:{{m}}"><i class="icon icon-magnet" ></i></a></td>
+
+        </tr>
+    </script>
+    <script id="wordcount-template" type="text/x-handlebars-template">
+        {{#each this}}
+            <div class="count">
+                <em>{{key}}: </em> {{value}}
+            </div>
+        {{/each}}
+        <div class="count loading-icon">
+            <img src="img/loading.gif" alt="Pirate Couch" />
+        </div>
+    </script>
   </body>
 </html>

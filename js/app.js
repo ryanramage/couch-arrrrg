@@ -9,24 +9,41 @@ define('js/app',[
 function($, handlebars, couch, JSONStream, _){
     var exports = {};
 
+    var templates = {};
+    handlebars.registerHelper('niceSize', function(size) {
+        return formatSize(size);
+    });
+
+
+    function compileTemplate(domId, templateName) {
+        var source   = $("#" + domId).html();
+        templates[templateName] = handlebars.compile(source);
+    }
+
     exports.init = function() {
-            console.log('in init');
+        compileTemplate('loading-template',   'loading.html');
+        compileTemplate('wordcount-template', 'word_count.html');
+        compileTemplate('results-template',   'results.html');
+        compileTemplate('row-template',       'row.html');
+        compileTemplate('nofound-template',   'nofound.html');
+
     }
 
 
     exports.ui = function(){
         $('form').submit(function() {
             try {
-                 //$('.results').html(templates['loading.html']());
+                 $('.results').html(templates['loading.html']());
                  var text = $('.search-query').val();
                  var terms = text.toLowerCase().split(' ');
 
                  terms = _.filter(terms, function(term) { return (term.length > 1); });
 
                  word_count(terms, function(err, results) {
-                     if (err) return console.log(err);
-                     //$('.word-count').html(templates['word_count.html'](results));
-                     //$('.results').html(templates['results.html']());
+                     if (err || !results || results.length === 0 ) return $('.results').html(templates['nofound.html']());
+
+                     $('.word-count').html(templates['word_count.html'](results));
+                     $('.results').html(templates['results.html']());
                      var url = build_search_url(results);
                      var path = window.location.pathname + url + '?d=' + new Date().getTime();
                      var xhr = new XMLHttpRequest()
@@ -35,7 +52,15 @@ function($, handlebars, couch, JSONStream, _){
                      var json = JSONStream.parse([/./])
                      stream.pipe(json)
                      json.on('data', function(doc) {
-
+                         if (doc) {
+                            $('.results tbody').append(templates['row.html'](doc));
+                         } else {
+                             // no results
+                             $('.loading-icon').hide();
+                         }
+                     });
+                     json.on('end', function(){
+                         $('.loading-icon').hide();
                      });
 
 
