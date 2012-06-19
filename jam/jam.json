@@ -6,6 +6,7 @@
         "jquery": null,
         "underscore": null,
         "couchr": null,
-        "domReady": null
+        "domReady": null,
+        "tablesorter": null
     }
 }

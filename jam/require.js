@@ -2095,6 +2095,11 @@ var jam = {
             "main": "domReady.js"
         },
         {
+            "name": "tablesorter",
+            "location": "jam/tablesorter",
+            "main": "js/tablesorter.js"
+        },
+        {
             "name": "stream",
             "location": "jam/stream",
             "main": "stream.js"

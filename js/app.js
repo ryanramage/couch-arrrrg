@@ -3,7 +3,8 @@ define('js/app',[
     'handlebars',
     'couchr',
     'JSONStream',
-    'underscore'
+    'underscore',
+    'tablesorter'
 
 ],
 function($, handlebars, couch, JSONStream, _){
@@ -63,6 +64,7 @@ function($, handlebars, couch, JSONStream, _){
                     });
                     json.on('end', function () {
                         $('.loading-icon').hide();
+                        $('table').tablesorter();
                     });
 
 
