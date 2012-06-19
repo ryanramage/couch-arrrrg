@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/dashboard/_design/dashboard/_rewrite/_topbar.css" />
     <link rel="stylesheet" type="text/css" href="css/tpb.css" />
-    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.16.custom.css" />
+    <link rel="stylesheet" type="text/css" href="html/css/jquery-ui-1.8.16.custom.css" />
     <title>Couch Pirate</title>
   </head>
   <body>
@@ -34,10 +34,12 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="modules.js"></script>
-    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.ajax-stream.js"></script>
-    <script type="text/javascript" src="js/tpb.js"></script>
+    <script type="text/javascript" src="html/jam/require.js"></script>
+    <script type="text/javascript">
+        require(['html/jam/jquery'], function ($) {
+            window.$ = $;
+        });
+    </script>
     <script type="text/javascript" src="/dashboard/_design/dashboard/_rewrite/static/js/topbar.js"></script>
 
   </body>
