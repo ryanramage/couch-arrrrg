@@ -36,7 +36,10 @@
     </div>
     <script type="text/javascript" src="jam/require.js"></script>
     <script type="text/javascript">
-        require(['js/app', 'domReady'], function (app, domReady) {
+        require(['js/app', 'domReady', 'jquery'], function (app, domReady, $) {
+            window.$ = $;
+            $('head').append('<script type="text/javascript" src="/dashboard/_design/dashboard/_rewrite/static/js/topbar.js"/>');
+
             app.init();
             domReady(function () {
                app.ui();
