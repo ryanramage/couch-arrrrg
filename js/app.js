@@ -20,57 +20,60 @@ function($, handlebars, couch, JSONStream, _){
         templates[templateName] = handlebars.compile(source);
     }
 
-    exports.init = function() {
-        compileTemplate('loading-template',   'loading.html');
+    exports.init = function () {
+        compileTemplate('loading-template', 'loading.html');
         compileTemplate('wordcount-template', 'word_count.html');
-        compileTemplate('results-template',   'results.html');
-        compileTemplate('row-template',       'row.html');
-        compileTemplate('nofound-template',   'nofound.html');
+        compileTemplate('results-template', 'results.html');
+        compileTemplate('row-template', 'row.html');
+        compileTemplate('nofound-template', 'nofound.html');
 
-    }
+    };
 
 
-    exports.ui = function(){
-        $('form').submit(function() {
+    exports.ui = function () {
+        $('form').submit(function () {
             try {
-                 $('.results').html(templates['loading.html']());
-                 var text = $('.search-query').val();
-                 var terms = text.toLowerCase().split(' ');
+                $('.results').html(templates['loading.html']());
+                var text = $('.search-query').val();
+                var terms = text.toLowerCase().split(' ');
 
-                 terms = _.filter(terms, function(term) { return (term.length > 1); });
+                terms = _.filter(terms, function (term) {
+                    return (term.length > 1);
+                });
 
-                 word_count(terms, function(err, results) {
-                     if (err || !results || results.length === 0 ) return $('.results').html(templates['nofound.html']());
+                word_count(terms, function (err, results) {
+                    if (err || !results || results.length === 0) return $('.results').html(templates['nofound.html']());
 
-                     $('.word-count').html(templates['word_count.html'](results));
-                     $('.results').html(templates['results.html']());
-                     var url = build_search_url(results);
-                     var path = window.location.pathname + url + '?d=' + new Date().getTime();
-                     var xhr = new XMLHttpRequest()
-                     xhr.open("GET", path, true);
-                     var stream = new JSONStream.XHRStream(xhr)
-                     var json = JSONStream.parse([/./])
-                     stream.pipe(json)
-                     json.on('data', function(doc) {
-                         if (doc) {
+                    $('.word-count').html(templates['word_count.html'](results));
+                    $('.results').html(templates['results.html']());
+                    var url = build_search_url(results);
+                    var path = window.location.pathname + url + '?d=' + new Date().getTime();
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", path, true);
+                    var stream = new JSONStream.XHRStream(xhr);
+                    var json = JSONStream.parse([/./]);
+                    stream.pipe(json);
+                    json.on('data', function (doc) {
+                        if (doc) {
                             $('.results tbody').append(templates['row.html'](doc));
-                         } else {
-                             // no results
-                             $('.loading-icon').hide();
-                         }
-                     });
-                     json.on('end', function(){
-                         $('.loading-icon').hide();
-                     });
+                        } else {
+                            // no results
+                            $('.loading-icon').hide();
+                        }
+                    });
+                    json.on('end', function () {
+                        $('.loading-icon').hide();
+                    });
 
 
-                 });
+                });
             }
-            catch (ignore) { }
+            catch (ignore) {
+            }
 
             return false;
         });
-    }
+    };
 
 
 
@@ -86,21 +89,14 @@ function($, handlebars, couch, JSONStream, _){
     }
 
 
-    function word_intersection(results, callback) {
-        var intersection = _.intersection.apply(null, _.values(results));
-        callback(intersection);
-    }
 
-    function display(torrents) {
-        $('.results').html(templates['results.html'](torrents));
-    }
 
     function build_search_url(word_counts) {
         var smallest = _.min(word_counts, function(term){ return term.value });
         var url = "_search/" + smallest.key;
         if (word_counts.length > 1) {
             var first = true;
-            var other = _.each(word_counts, function(term){
+            _.each(word_counts, function(term){
                 if (term.key == smallest.key) return;
                 var prepend = '/';
                 if (!first)  prepend = '+';
