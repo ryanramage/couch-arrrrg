@@ -1,0 +1,11 @@
+{
+    "jam_version": "0.1.0",
+    "dependencies": {
+        "JSONStream": null,
+        "handlebars": null,
+        "jquery": null,
+        "underscore": null,
+        "couchr": null,
+        "domReady": null
+    }
+}
